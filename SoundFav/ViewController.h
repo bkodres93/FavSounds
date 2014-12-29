@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCTrack.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UITableViewController <NSURLConnectionDelegate>
+
+@property NSMutableArray *playlist;
+@property NSMutableData *responseData;
 
 
 @end

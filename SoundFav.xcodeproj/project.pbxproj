@@ -15,6 +15,7 @@
 		507A0E631A51FC96002E39BC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 507A0E621A51FC96002E39BC /* Images.xcassets */; };
 		507A0E661A51FC96002E39BC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 507A0E641A51FC96002E39BC /* LaunchScreen.xib */; };
 		507A0E721A51FC96002E39BC /* SoundFavTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 507A0E711A51FC96002E39BC /* SoundFavTests.m */; };
+		507A0E7D1A52186C002E39BC /* SCTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 507A0E7C1A52186C002E39BC /* SCTrack.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,8 @@
 		507A0E6B1A51FC96002E39BC /* SoundFavTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundFavTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		507A0E701A51FC96002E39BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		507A0E711A51FC96002E39BC /* SoundFavTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoundFavTests.m; sourceTree = "<group>"; };
+		507A0E7B1A52186C002E39BC /* SCTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTrack.h; sourceTree = "<group>"; };
+		507A0E7C1A52186C002E39BC /* SCTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTrack.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +90,8 @@
 				507A0E571A51FC96002E39BC /* AppDelegate.m */,
 				507A0E5C1A51FC96002E39BC /* ViewController.h */,
 				507A0E5D1A51FC96002E39BC /* ViewController.m */,
+				507A0E7B1A52186C002E39BC /* SCTrack.h */,
+				507A0E7C1A52186C002E39BC /* SCTrack.m */,
 				507A0E5F1A51FC96002E39BC /* Main.storyboard */,
 				507A0E621A51FC96002E39BC /* Images.xcassets */,
 				507A0E641A51FC96002E39BC /* LaunchScreen.xib */,
@@ -222,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				507A0E7D1A52186C002E39BC /* SCTrack.m in Sources */,
 				507A0E5B1A51FC96002E39BC /* SoundFav.xcdatamodeld in Sources */,
 				507A0E581A51FC96002E39BC /* AppDelegate.m in Sources */,
 				507A0E5E1A51FC96002E39BC /* ViewController.m in Sources */,
