@@ -6,7 +6,9 @@
 //  Copyright (c) 2014 Benjamin Kodres-O'Brien. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "TrackListViewController.h"
+#import "SongTableViewCell.h"
+#import "PlayerViewController.h"
 
 @interface ViewController ()
 
@@ -35,6 +37,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 #pragma mark UITableViewController methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -52,11 +55,48 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return a cell to be used for the row at the given index
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SongCell" forIndexPath:indexPath];
+    SongTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SongCell" forIndexPath:indexPath];
     
+    cell.artistLabel.text = [[self.playlist objectAtIndex:indexPath.row] artist];
+    cell.titleLabel.text = [[self.playlist objectAtIndex:indexPath.row] title];
+    
+    NSURL *imageUrl = [[self.playlist objectAtIndex:indexPath.row] imageUrl];
+    if (imageUrl)
+    {
+        NSData *data = [NSData dataWithContentsOfURL:imageUrl];
+        UIImage *img = [[UIImage alloc] initWithData:data];
+        cell.albumArt.image = img;
+    }
+    else
+    {
+        imageUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"blankrecord" ofType:@"jpg"]];
+        NSData *data = [NSData dataWithContentsOfURL:imageUrl];
+        UIImage *img = [[UIImage alloc] initWithData:data];
+        cell.albumArt.image = img;
+    }
     
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //Called whenever the user clicks on a table cell
+    SCTrack *selectedSong = [self.playlist objectAtIndex:indexPath.row];
+    
+    if (self.currentTrack == nil)
+    {
+        self.currentTrack = selectedSong;
+        [self.currentTrack play];
+    }
+    
+    if (selectedSong != self.currentTrack)
+    {
+        [self resetCurrentSong];
+        self.currentTrack = selectedSong;
+        [self.currentTrack play];
+    }
+}
+
 
 
 #pragma mark NSURLConnection Delegate Methods
@@ -97,6 +137,11 @@
         NSString *keyAsString = (NSString *)key;
         NSLog(@"LARGE key: %@", keyAsString);
         
+        if ([keyAsString isKindOfClass:[NSString class]] && [keyAsString isEqualToString:@"errors"])
+        {
+            return;
+        }
+        
         NSString *title = [key valueForKey:@"title"];
         NSString *artist = [[key valueForKey:@"user"] valueForKey:@"username"];
         NSString *streamString = [key valueForKey:@"stream_url"];
@@ -117,21 +162,11 @@
                                               andArtist:artist
                                                  andUrl:streamUrl
                                                andImage:imageUrl];
-        /*
-        for(id key2 in key)
-        {
-            id value = [key objectForKey:key2];
         
-            NSString *keyAsString2 = (NSString *)key2;
-            NSString *valueAsString = (NSString *)value;
-        
-            NSLog(@"key: %@", keyAsString2);
-            NSLog(@"value: %@", valueAsString);
-        }
-         */
-
-        
+        [self.playlist addObject:track];
     }
+    
+    [self.tableView reloadData];
     
     // extract specific value...
     /*
@@ -148,6 +183,43 @@
     // The request has failed for some reason!
     // Check the error var
     NSLog(@"Error");
+}
+
+
+#pragma mark track things
+
+- (void)trackDidFinish:(NSNotification *)notification
+{
+    // do somethign when track finishes
+    NSUInteger currentIndex = [self.playlist indexOfObject:self.currentTrack];
+    
+    if (currentIndex + 1 < [self.playlist count])
+    {
+        [self resetCurrentSong];
+        
+        SCTrack *newSong = [self.playlist objectAtIndex:currentIndex + 1];
+        self.currentTrack = newSong;
+        [self.currentTrack play];
+    }
+}
+
+- (void)resetCurrentSong
+{
+    if (self.currentTrack == nil)
+    {
+        return;
+    }
+    
+    CMTime beginning = CMTimeMake(0, 1);
+    [self.currentTrack pause];
+    [self.currentTrack.audioPlayer seekToTime:beginning];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    //Called whenever the view is about to segue to another view
+    PlayerViewController *controller = (PlayerViewController *)[[segue destinationViewController] visibleViewController];
+    controller.currentTrack = self.currentTrack;
 }
 
 @end

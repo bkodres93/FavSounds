@@ -7,8 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface SCTrack : NSObject
+
+@property AVPlayer *audioPlayer;
+@property (readonly) AVPlayerItem *playerItem;
+
 
 @property (nonatomic, strong) NSString *artist;
 @property (nonatomic, strong) NSString *title;
@@ -17,5 +22,9 @@
 @property NSInteger trackID;
 
 - (id)initWithTitle:(NSString *)title andArtist:(NSString *)artist andUrl:(NSURL *)url andImage:(NSURL *)image;
+
+- (void)play;
+- (void)pause;
+
 
 @end

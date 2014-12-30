@@ -20,8 +20,21 @@
         self.artist = artist;
         self.streamUrl = streamUrl;
         self.imageUrl = image;
+        
+        _playerItem = [[AVPlayerItem alloc] initWithURL:streamUrl];
+        self.audioPlayer = [[AVPlayer alloc] initWithPlayerItem:self.playerItem];
     }
     return self;
+}
+
+
+- (void)play
+{
+    [self.audioPlayer play];
+}
+- (void)pause
+{
+    [self.audioPlayer pause];
 }
 
 

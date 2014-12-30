@@ -11,9 +11,9 @@
 
 @interface ViewController : UITableViewController <NSURLConnectionDelegate>
 
-@property NSMutableArray *playlist;
+@property (nonatomic, strong) NSMutableArray *playlist;
 @property NSMutableData *responseData;
-
+@property (nonatomic, strong) SCTrack *currentTrack;
 
 @end
 

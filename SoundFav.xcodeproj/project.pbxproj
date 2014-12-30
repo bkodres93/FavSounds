@@ -10,12 +10,16 @@
 		507A0E551A51FC96002E39BC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 507A0E541A51FC96002E39BC /* main.m */; };
 		507A0E581A51FC96002E39BC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 507A0E571A51FC96002E39BC /* AppDelegate.m */; };
 		507A0E5B1A51FC96002E39BC /* SoundFav.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 507A0E591A51FC96002E39BC /* SoundFav.xcdatamodeld */; };
-		507A0E5E1A51FC96002E39BC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 507A0E5D1A51FC96002E39BC /* ViewController.m */; };
+		507A0E5E1A51FC96002E39BC /* TrackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 507A0E5D1A51FC96002E39BC /* TrackListViewController.m */; };
 		507A0E611A51FC96002E39BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 507A0E5F1A51FC96002E39BC /* Main.storyboard */; };
 		507A0E631A51FC96002E39BC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 507A0E621A51FC96002E39BC /* Images.xcassets */; };
 		507A0E661A51FC96002E39BC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 507A0E641A51FC96002E39BC /* LaunchScreen.xib */; };
 		507A0E721A51FC96002E39BC /* SoundFavTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 507A0E711A51FC96002E39BC /* SoundFavTests.m */; };
 		507A0E7D1A52186C002E39BC /* SCTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 507A0E7C1A52186C002E39BC /* SCTrack.m */; };
+		50EF29061A525DD500FB8DD4 /* SongTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EF29051A525DD500FB8DD4 /* SongTableViewCell.m */; };
+		50EF29081A52621B00FB8DD4 /* blankrecord.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 50EF29071A52621B00FB8DD4 /* blankrecord.jpg */; };
+		50EF290B1A527DC100FB8DD4 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EF290A1A527DC100FB8DD4 /* PlayerViewController.m */; };
+		D5B6634DE0B3F71301A343C4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF3AEB23D3BFD9D770ABCE3 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,8 +39,8 @@
 		507A0E561A51FC96002E39BC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		507A0E571A51FC96002E39BC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		507A0E5A1A51FC96002E39BC /* SoundFav.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SoundFav.xcdatamodel; sourceTree = "<group>"; };
-		507A0E5C1A51FC96002E39BC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		507A0E5D1A51FC96002E39BC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		507A0E5C1A51FC96002E39BC /* TrackListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackListViewController.h; sourceTree = "<group>"; };
+		507A0E5D1A51FC96002E39BC /* TrackListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackListViewController.m; sourceTree = "<group>"; };
 		507A0E601A51FC96002E39BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		507A0E621A51FC96002E39BC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		507A0E651A51FC96002E39BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -45,6 +49,14 @@
 		507A0E711A51FC96002E39BC /* SoundFavTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoundFavTests.m; sourceTree = "<group>"; };
 		507A0E7B1A52186C002E39BC /* SCTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTrack.h; sourceTree = "<group>"; };
 		507A0E7C1A52186C002E39BC /* SCTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTrack.m; sourceTree = "<group>"; };
+		50EF29041A525DD500FB8DD4 /* SongTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongTableViewCell.h; sourceTree = "<group>"; };
+		50EF29051A525DD500FB8DD4 /* SongTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongTableViewCell.m; sourceTree = "<group>"; };
+		50EF29071A52621B00FB8DD4 /* blankrecord.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = blankrecord.jpg; sourceTree = "<group>"; };
+		50EF29091A527DC100FB8DD4 /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
+		50EF290A1A527DC100FB8DD4 /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
+		7BDDE640A022673B18CBF8A5 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		BBF3AEB23D3BFD9D770ABCE3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C43B9242E3B1F9A40B3750ED /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5B6634DE0B3F71301A343C4 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,12 +78,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1DF1EF3001B3A5CFBCF371B8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C43B9242E3B1F9A40B3750ED /* Pods.debug.xcconfig */,
+				7BDDE640A022673B18CBF8A5 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		33C97E9BADADEEE3163ADC2A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BBF3AEB23D3BFD9D770ABCE3 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		507A0E461A51FC96002E39BC = {
 			isa = PBXGroup;
 			children = (
 				507A0E511A51FC96002E39BC /* SoundFav */,
 				507A0E6E1A51FC96002E39BC /* SoundFavTests */,
 				507A0E501A51FC96002E39BC /* Products */,
+				1DF1EF3001B3A5CFBCF371B8 /* Pods */,
+				33C97E9BADADEEE3163ADC2A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,15 +118,12 @@
 		507A0E511A51FC96002E39BC /* SoundFav */ = {
 			isa = PBXGroup;
 			children = (
-				507A0E561A51FC96002E39BC /* AppDelegate.h */,
-				507A0E571A51FC96002E39BC /* AppDelegate.m */,
-				507A0E5C1A51FC96002E39BC /* ViewController.h */,
-				507A0E5D1A51FC96002E39BC /* ViewController.m */,
-				507A0E7B1A52186C002E39BC /* SCTrack.h */,
-				507A0E7C1A52186C002E39BC /* SCTrack.m */,
+				50EF290E1A527E0500FB8DD4 /* Views */,
+				50EF290D1A527DFD00FB8DD4 /* Models */,
+				50EF290C1A527DD300FB8DD4 /* Controllers */,
 				507A0E5F1A51FC96002E39BC /* Main.storyboard */,
+				50EF29071A52621B00FB8DD4 /* blankrecord.jpg */,
 				507A0E621A51FC96002E39BC /* Images.xcassets */,
-				507A0E641A51FC96002E39BC /* LaunchScreen.xib */,
 				507A0E591A51FC96002E39BC /* SoundFav.xcdatamodeld */,
 				507A0E521A51FC96002E39BC /* Supporting Files */,
 			);
@@ -104,6 +133,8 @@
 		507A0E521A51FC96002E39BC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				507A0E561A51FC96002E39BC /* AppDelegate.h */,
+				507A0E571A51FC96002E39BC /* AppDelegate.m */,
 				507A0E531A51FC96002E39BC /* Info.plist */,
 				507A0E541A51FC96002E39BC /* main.m */,
 			);
@@ -127,6 +158,36 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		50EF290C1A527DD300FB8DD4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				507A0E5C1A51FC96002E39BC /* TrackListViewController.h */,
+				507A0E5D1A51FC96002E39BC /* TrackListViewController.m */,
+				50EF29091A527DC100FB8DD4 /* PlayerViewController.h */,
+				50EF290A1A527DC100FB8DD4 /* PlayerViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		50EF290D1A527DFD00FB8DD4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				507A0E7B1A52186C002E39BC /* SCTrack.h */,
+				507A0E7C1A52186C002E39BC /* SCTrack.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		50EF290E1A527E0500FB8DD4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				507A0E641A51FC96002E39BC /* LaunchScreen.xib */,
+				50EF29041A525DD500FB8DD4 /* SongTableViewCell.h */,
+				50EF29051A525DD500FB8DD4 /* SongTableViewCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -134,9 +195,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 507A0E751A51FC96002E39BC /* Build configuration list for PBXNativeTarget "SoundFav" */;
 			buildPhases = (
+				1C50E4E5871C7C1CFA3D634D /* Check Pods Manifest.lock */,
 				507A0E4B1A51FC96002E39BC /* Sources */,
 				507A0E4C1A51FC96002E39BC /* Frameworks */,
 				507A0E4D1A51FC96002E39BC /* Resources */,
+				24D827F5FF0F61881008F917 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -208,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				507A0E611A51FC96002E39BC /* Main.storyboard in Resources */,
+				50EF29081A52621B00FB8DD4 /* blankrecord.jpg in Resources */,
 				507A0E661A51FC96002E39BC /* LaunchScreen.xib in Resources */,
 				507A0E631A51FC96002E39BC /* Images.xcassets in Resources */,
 			);
@@ -222,15 +286,50 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1C50E4E5871C7C1CFA3D634D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		24D827F5FF0F61881008F917 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		507A0E4B1A51FC96002E39BC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50EF290B1A527DC100FB8DD4 /* PlayerViewController.m in Sources */,
 				507A0E7D1A52186C002E39BC /* SCTrack.m in Sources */,
 				507A0E5B1A51FC96002E39BC /* SoundFav.xcdatamodeld in Sources */,
+				50EF29061A525DD500FB8DD4 /* SongTableViewCell.m in Sources */,
 				507A0E581A51FC96002E39BC /* AppDelegate.m in Sources */,
-				507A0E5E1A51FC96002E39BC /* ViewController.m in Sources */,
+				507A0E5E1A51FC96002E39BC /* TrackListViewController.m in Sources */,
 				507A0E551A51FC96002E39BC /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -353,6 +452,7 @@
 		};
 		507A0E761A51FC96002E39BC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C43B9242E3B1F9A40B3750ED /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SoundFav/Info.plist;
@@ -363,6 +463,7 @@
 		};
 		507A0E771A51FC96002E39BC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BDDE640A022673B18CBF8A5 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SoundFav/Info.plist;
@@ -424,6 +525,7 @@
 				507A0E771A51FC96002E39BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		507A0E781A51FC96002E39BC /* Build configuration list for PBXNativeTarget "SoundFavTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +534,7 @@
 				507A0E7A1A51FC96002E39BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
