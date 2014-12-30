@@ -29,7 +29,8 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://api.soundcloud.com/users/58871449/favorites.json?client_id=36e9edc50bb49091f65b65c30dfd6e4e"]];
     
     // Create url connection and fire request
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
+    [conn start];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,6 +57,8 @@
 {
     // Return a cell to be used for the row at the given index
     SongTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SongCell" forIndexPath:indexPath];
+    cell.titleLabel.adjustsFontSizeToFitWidth = YES;
+    cell.artistLabel.adjustsFontSizeToFitWidth = YES;
     
     cell.artistLabel.text = [[self.playlist objectAtIndex:indexPath.row] artist];
     cell.titleLabel.text = [[self.playlist objectAtIndex:indexPath.row] title];

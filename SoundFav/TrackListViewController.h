@@ -11,6 +11,7 @@
 
 @interface ViewController : UITableViewController <NSURLConnectionDelegate>
 
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, strong) NSMutableArray *playlist;
 @property NSMutableData *responseData;
 @property (nonatomic, strong) SCTrack *currentTrack;

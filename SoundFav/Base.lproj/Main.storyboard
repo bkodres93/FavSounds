@@ -2,9 +2,11 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4bv-K3-XYK">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Songs-->
+        <!--Favorites-->
         <scene sceneID="PvG-Mz-K2S">
             <objects>
                 <tableViewController id="Fnd-2h-q9R" customClass="ViewController" sceneMemberID="viewController">
@@ -12,34 +14,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="19y-xK-Y8G">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SongCell" rowHeight="75" id="8dm-6M-JMA" userLabel="SongCell" customClass="SongTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8dm-6M-JMA" id="Bmi-dU-7eP">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HO6-tf-ttL">
-                                            <rect key="frame" x="90" y="8" width="502" height="26"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkT-Hl-LDC">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkT-Hl-LDC">
                                             <rect key="frame" x="90" y="42" width="502" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YPO-Y5-GJU" customClass="UIImageView">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YPO-Y5-GJU" customClass="UIImageView">
                                             <rect key="frame" x="8" y="4" width="67" height="67"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="YPO-Y5-GJU" secondAttribute="height" multiplier="1:1" id="pdt-np-ygI"/>
+                                            </constraints>
                                         </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HO6-tf-ttL">
+                                            <rect key="frame" x="90" y="14" width="502" height="26"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="26" id="aIg-4s-7nL"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="HO6-tf-ttL" firstAttribute="leading" secondItem="nkT-Hl-LDC" secondAttribute="leading" id="3cr-Fd-4hN"/>
+                                        <constraint firstItem="HO6-tf-ttL" firstAttribute="trailing" secondItem="Bmi-dU-7eP" secondAttribute="trailingMargin" id="8s9-c2-nEg"/>
+                                        <constraint firstItem="HO6-tf-ttL" firstAttribute="leading" secondItem="YPO-Y5-GJU" secondAttribute="trailing" constant="15" id="MAc-l2-eC8"/>
+                                        <constraint firstItem="nkT-Hl-LDC" firstAttribute="top" secondItem="HO6-tf-ttL" secondAttribute="bottom" constant="2" id="Naw-Kz-67v"/>
+                                        <constraint firstItem="YPO-Y5-GJU" firstAttribute="leading" secondItem="Bmi-dU-7eP" secondAttribute="leadingMargin" id="YoP-5v-bVx"/>
+                                        <constraint firstItem="HO6-tf-ttL" firstAttribute="top" secondItem="Bmi-dU-7eP" secondAttribute="topMargin" constant="6" id="tmY-cQ-mmn"/>
+                                        <constraint firstItem="YPO-Y5-GJU" firstAttribute="top" secondItem="Bmi-dU-7eP" secondAttribute="topMargin" constant="-4" id="uVO-JX-GPw"/>
+                                        <constraint firstAttribute="centerY" secondItem="YPO-Y5-GJU" secondAttribute="centerY" constant="-0.25" id="uVT-rC-lVy"/>
+                                        <constraint firstItem="HO6-tf-ttL" firstAttribute="trailing" secondItem="nkT-Hl-LDC" secondAttribute="trailing" id="ydJ-fI-u1o"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="albumArt" destination="YPO-Y5-GJU" id="7ZI-6D-diL"/>
@@ -54,7 +68,26 @@
                             <outlet property="delegate" destination="Fnd-2h-q9R" id="XY4-pW-J0r"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Songs" id="Lyz-So-BAI"/>
+                    <navigationItem key="navigationItem" title="Favorites" id="Lyz-So-BAI">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="Vje-yu-W1J">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Tb5-H9-6J6">
+                                <rect key="frame" x="-23" y="-15" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Enter User">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="mfV-Ja-HfO">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pgW-jO-JaL">
+                                <rect key="frame" x="-23" y="-15" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Now Playing">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S4D-gz-GQw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
