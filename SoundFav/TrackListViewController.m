@@ -9,6 +9,9 @@
 #import "TrackListViewController.h"
 #import "SongTableViewCell.h"
 #import "PlayerViewController.h"
+#import "SCUI.h"
+
+#define CLIENT_ID "36e9edc50bb49091f65b65c30dfd6e4e"
 
 @interface ViewController ()
 
@@ -19,19 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.playlist = [[NSMutableArray alloc] init];
-    
-    [self loadInitialData];
 }
 
-- (void)loadInitialData
-{
-    // Create the request.
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://api.soundcloud.com/users/58871449/favorites.json?client_id=36e9edc50bb49091f65b65c30dfd6e4e"]];
-    
-    // Create url connection and fire request
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
-    [conn start];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -72,7 +64,7 @@
     }
     else
     {
-        imageUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"blankrecord" ofType:@"jpg"]];
+        imageUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"blank" ofType:@"png"]];
         NSData *data = [NSData dataWithContentsOfURL:imageUrl];
         UIImage *img = [[UIImage alloc] initWithData:data];
         cell.albumArt.image = img;
@@ -89,103 +81,19 @@
     if (self.currentTrack == nil)
     {
         self.currentTrack = selectedSong;
-        [self.currentTrack play];
     }
     
     if (selectedSong != self.currentTrack)
     {
         [self resetCurrentSong];
         self.currentTrack = selectedSong;
-        [self.currentTrack play];
-    }
-}
-
-
-
-#pragma mark NSURLConnection Delegate Methods
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    // A response has been received, this is where we initialize the instance var you created
-    // so that we can append data to it in the didReceiveData method
-    // Furthermore, this method is called each time there is a redirect so reinitializing it
-    // also serves to clear it
-    _responseData = [[NSMutableData alloc] init];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    // Append the new data to the instance variable you declared
-    [self.responseData appendData:data];
-}
-
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
-                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
-    // Return nil to indicate not necessary to store a cached response for this connection
-    return nil;
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    // The request is complete and data has been received
-    // You can parse the stuff in your instance variable now
-    NSLog(@"connectionDidFinishLoading");
-    NSLog(@"Succeeded! Received %lu bytes of data",self.responseData.length);
-    
-    // convert to JSON
-    NSError *myError = nil;
-    NSDictionary *res = [NSJSONSerialization JSONObjectWithData:self.responseData
-                                                        options:NSJSONReadingMutableLeaves
-                                                          error:&myError];
-    
-    // show all values
-    for(id key in res) {
-        NSString *keyAsString = (NSString *)key;
-        NSLog(@"LARGE key: %@", keyAsString);
-        
-        if ([keyAsString isKindOfClass:[NSString class]] && [keyAsString isEqualToString:@"errors"])
-        {
-            return;
-        }
-        
-        NSString *title = [key valueForKey:@"title"];
-        NSString *artist = [[key valueForKey:@"user"] valueForKey:@"username"];
-        NSString *streamString = [key valueForKey:@"stream_url"];
-        NSString *imageString = [key valueForKey:@"artwork_url"];
-        
-        NSURL *streamUrl = nil;
-        if (streamString != nil)
-        {
-            streamUrl = [[NSURL alloc] initWithString:streamString];
-        }
-        NSURL *imageUrl = nil;
-        if (imageString != nil && ![imageString isKindOfClass:[NSNull class]])
-        {
-            imageUrl = [[NSURL alloc] initWithString:imageString];
-        }
-        
-        SCTrack *track = [[SCTrack alloc] initWithTitle:title
-                                              andArtist:artist
-                                                 andUrl:streamUrl
-                                               andImage:imageUrl];
-        
-        [self.playlist addObject:track];
     }
     
-    [self.tableView reloadData];
-    
-    // extract specific value...
-    /*
-    NSArray *results = [res objectForKey:@"results"];
-    
-    for (NSDictionary *result in results) {
-        NSString *icon = [result objectForKey:@"icon"];
-        NSLog(@"icon: %@", icon);
-    }*/
-    
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    // The request has failed for some reason!
-    // Check the error var
-    NSLog(@"Error");
+    NSLog(@"Stream URL: %@", [self.currentTrack.streamUrl absoluteString]);
+    NSString *realURL = [self.currentTrack.streamUrl.absoluteString
+                         stringByAppendingFormat:@".json?client_id=" CLIENT_ID];
+    self.currentTrack.audioPlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:realURL]];
+    [self.currentTrack.audioPlayer play];
 }
 
 
@@ -212,10 +120,105 @@
     {
         return;
     }
-    
+
     CMTime beginning = CMTimeMake(0, 1);
     [self.currentTrack pause];
     [self.currentTrack.audioPlayer seekToTime:beginning];
+}
+
+
+- (IBAction)login:(id)sender
+{
+    SCLoginViewControllerCompletionHandler handler = ^(NSError *error) {
+        if (SC_CANCELED(error)) {
+            NSLog(@"Canceled!");
+        } else if (error) {
+            NSLog(@"Error: %@", [error localizedDescription]);
+        }
+        // RELOAD EVERTHING
+        else
+        {
+            NSLog(@"Done!");
+            SCAccount *account = [SCSoundCloud account];
+            if (account == nil) {
+                UIAlertView *alert = [[UIAlertView alloc]
+                                      initWithTitle:@"Not Logged In"
+                                      message:@"You must login first"
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+                [alert show];
+                return;
+            }
+            
+            // register the handler
+            SCRequestResponseHandler handler;
+            handler = ^(NSURLResponse *response, NSData *data, NSError *error) {
+                self.playlist = [[NSMutableArray alloc] init];
+                NSError *jsonError = nil;
+                NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data
+                                                                             options:NSJSONReadingMutableLeaves
+                                                                               error:&jsonError];
+                if (!jsonError) {
+                    
+                    // show all values
+                    for(id key in jsonResponse) {
+                        NSString *keyAsString = (NSString *)key;
+                        
+                        if ([keyAsString isKindOfClass:[NSString class]] && [keyAsString isEqualToString:@"errors"])
+                        {
+                            return;
+                        }
+                        
+                        NSString *title = [key valueForKey:@"title"];
+                        NSString *artist = [[key valueForKey:@"user"] valueForKey:@"username"];
+                        NSString *streamString = [key valueForKey:@"stream_url"];
+                        [streamString stringByAppendingString:@"?client_id=" CLIENT_ID];
+                        NSString *imageString = [key valueForKey:@"artwork_url"];
+                        
+                        NSURL *streamUrl = nil;
+                        if (streamString != nil)
+                        {
+                            streamUrl = [[NSURL alloc] initWithString:streamString];
+                        }
+                        NSURL *imageUrl = nil;
+                        if (imageString != nil && ![imageString isKindOfClass:[NSNull class]])
+                        {
+                            imageUrl = [[NSURL alloc] initWithString:imageString];
+                        }
+                        
+                        SCTrack *track = [[SCTrack alloc] initWithTitle:title
+                                                              andArtist:artist
+                                                                 andUrl:streamUrl
+                                                               andImage:imageUrl];
+                        
+                        [self.playlist addObject:track];
+                    }
+                    
+                    [self.tableView reloadData];
+                }
+            };
+            
+            // perform the request
+            NSString *resourceURL = @"https://api.soundcloud.com/me/favorites.json?client_id=" CLIENT_ID;
+            [SCRequest performMethod:SCRequestMethodGET
+                          onResource:[NSURL URLWithString:resourceURL]
+                     usingParameters:nil
+                         withAccount:account
+              sendingProgressHandler:nil
+                     responseHandler:handler];
+        }
+
+    };
+    
+    [SCSoundCloud requestAccessWithPreparedAuthorizationURLHandler:^(NSURL *preparedURL) {
+        SCLoginViewController *loginViewController;
+        
+        loginViewController = [SCLoginViewController
+                               loginViewControllerWithPreparedURL:preparedURL
+                               completionHandler:handler];
+        [self presentViewController:loginViewController animated:YES completion:NULL];
+    }];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -223,6 +226,7 @@
     //Called whenever the view is about to segue to another view
     PlayerViewController *controller = (PlayerViewController *)[[segue destinationViewController] visibleViewController];
     controller.currentTrack = self.currentTrack;
+    controller.playlist = self.playlist;
 }
 
 @end

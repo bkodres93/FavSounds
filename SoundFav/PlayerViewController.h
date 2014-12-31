@@ -12,5 +12,6 @@
 @interface PlayerViewController : UIViewController
 
 @property (nonatomic, strong) SCTrack *currentTrack;
+@property (nonatomic, strong) NSMutableArray *playlist;
 
 @end

@@ -12,7 +12,7 @@
 @interface SCTrack : NSObject
 
 @property AVPlayer *audioPlayer;
-@property (readonly) AVPlayerItem *playerItem;
+@property AVPlayerItem *playerItem;
 
 
 @property (nonatomic, strong) NSString *artist;

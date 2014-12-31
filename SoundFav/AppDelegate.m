@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SCUI.h"
 
 @interface AppDelegate ()
 
@@ -14,10 +15,15 @@
 
 @implementation AppDelegate
 
-
++ (void) initialize
+{
+    [SCSoundCloud setClientID:@"36e9edc50bb49091f65b65c30dfd6e4e"
+                       secret:@"b79229843de44a962edd37ead3d969eb"
+                  redirectURL:[NSURL URLWithString:@"FavoriteSounds://oauth"]];
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    [AppDelegate initialize];
     return YES;
 }
 
