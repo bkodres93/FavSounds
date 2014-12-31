@@ -59,12 +59,11 @@
                                     <outlet property="albumArt" destination="YPO-Y5-GJU" id="7ZI-6D-diL"/>
                                     <outlet property="artistLabel" destination="nkT-Hl-LDC" id="06B-YA-QKV"/>
                                     <outlet property="titleLabel" destination="HO6-tf-ttL" id="IYX-tM-gD1"/>
-                                    <segue destination="2SY-Rv-Wnc" kind="show" id="RfK-Vz-o9K"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="Fnd-2h-q9R" id="fRz-yv-1dr"/>
+                            <outlet property="dataSource" destination="Fnd-2h-q9R" id="oQg-C2-MXb"/>
                             <outlet property="delegate" destination="Fnd-2h-q9R" id="XY4-pW-J0r"/>
                         </connections>
                     </tableView>
@@ -89,12 +88,13 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="2SY-Rv-Wnc" kind="show" id="aCz-OB-UYH"/>
+                                    <segue destination="2SY-Rv-Wnc" kind="show" identifier="Now Playing" id="aCz-OB-UYH"/>
                                 </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="jamOutButtom" destination="pgW-jO-JaL" id="OGx-LP-cPv"/>
                         <outlet property="loginButton" destination="Vje-yu-W1J" id="LxA-nL-b31"/>
                     </connections>
                 </tableViewController>
@@ -127,11 +127,90 @@
                         <viewControllerLayoutGuide type="bottom" id="Vke-fB-RlB"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="BFV-eW-Xcb">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="900"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blank.png" translatesAutoresizingMaskIntoConstraints="NO" id="cvM-DB-ccM">
+                                <rect key="frame" x="50" y="92" width="500" height="500"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="500" id="VSk-tF-H9B"/>
+                                    <constraint firstAttribute="width" secondItem="cvM-DB-ccM" secondAttribute="height" multiplier="1:1" id="t4E-mv-SGK"/>
+                                    <constraint firstAttribute="width" constant="500" id="tj1-da-sHy"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vH3-yM-BI8">
+                                <rect key="frame" x="266" y="645" width="69" height="69"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="vH3-yM-BI8" secondAttribute="height" multiplier="1:1" id="2Qq-gs-YPe"/>
+                                    <constraint firstAttribute="width" constant="69" id="Byh-1G-BAB"/>
+                                    <constraint firstAttribute="height" constant="69" id="lof-Dq-bLN"/>
+                                </constraints>
+                                <state key="normal" image="pause.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playButtonClicked:" destination="LaE-gv-2m2" eventType="touchUpInside" id="BC6-BH-8Hs"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="82L-0p-HEa">
+                                <rect key="frame" x="365" y="659" width="64" height="42"/>
+                                <state key="normal" image="fastforward.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="fastforwardClicked:" destination="LaE-gv-2m2" eventType="touchUpInside" id="53S-4B-9Sx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Jq-5P-afN">
+                                <rect key="frame" x="172" y="659" width="64" height="42"/>
+                                <state key="normal" image="rewind.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="rewindClicked:" destination="LaE-gv-2m2" eventType="touchUpInside" id="FT2-CG-WGv"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PcB-hU-8s6">
+                                <rect key="frame" x="50" y="769" width="500" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zbc-Im-wN1">
+                                <rect key="frame" x="50" y="735" width="500" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="Zbc-Im-wN1" secondAttribute="centerX" id="2Wc-YY-hAx"/>
+                            <constraint firstItem="Zbc-Im-wN1" firstAttribute="top" secondItem="vH3-yM-BI8" secondAttribute="bottom" constant="21" id="2l8-xe-cTD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="cvM-DB-ccM" secondAttribute="trailing" constant="34" id="4dh-I2-gmE"/>
+                            <constraint firstItem="vH3-yM-BI8" firstAttribute="top" secondItem="cvM-DB-ccM" secondAttribute="bottom" constant="53" id="J4U-ys-u6b"/>
+                            <constraint firstItem="cvM-DB-ccM" firstAttribute="top" secondItem="viH-qy-Crp" secondAttribute="bottom" constant="28" id="Mi4-Fv-wpr"/>
+                            <constraint firstAttribute="centerX" secondItem="vH3-yM-BI8" secondAttribute="centerX" constant="-0.5" id="NhY-bH-JYm"/>
+                            <constraint firstItem="6Jq-5P-afN" firstAttribute="top" secondItem="cvM-DB-ccM" secondAttribute="bottom" constant="67" id="Rct-cs-0Ep"/>
+                            <constraint firstItem="PcB-hU-8s6" firstAttribute="leading" secondItem="Zbc-Im-wN1" secondAttribute="leading" id="VEk-KF-IiX"/>
+                            <constraint firstAttribute="centerX" secondItem="PcB-hU-8s6" secondAttribute="centerX" id="Xrt-Yc-sEu"/>
+                            <constraint firstItem="Zbc-Im-wN1" firstAttribute="leading" secondItem="cvM-DB-ccM" secondAttribute="leading" id="YIU-18-UDH"/>
+                            <constraint firstItem="82L-0p-HEa" firstAttribute="top" secondItem="cvM-DB-ccM" secondAttribute="bottom" constant="67" id="avt-J0-ih4"/>
+                            <constraint firstItem="cvM-DB-ccM" firstAttribute="leading" secondItem="BFV-eW-Xcb" secondAttribute="leadingMargin" constant="34" id="bgM-PT-jgR"/>
+                            <constraint firstItem="82L-0p-HEa" firstAttribute="leading" secondItem="vH3-yM-BI8" secondAttribute="trailing" constant="30" id="dXt-aE-4pQ"/>
+                            <constraint firstItem="vH3-yM-BI8" firstAttribute="leading" secondItem="6Jq-5P-afN" secondAttribute="trailing" constant="30" id="jdJ-xk-xpG"/>
+                            <constraint firstItem="PcB-hU-8s6" firstAttribute="top" secondItem="Zbc-Im-wN1" secondAttribute="bottom" constant="13" id="kaT-2a-ZOZ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Now Playing" id="ZtM-jM-y9b"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="900"/>
+                    <connections>
+                        <outlet property="albumArt" destination="cvM-DB-ccM" id="pXi-Jr-ucW"/>
+                        <outlet property="artistLabel" destination="PcB-hU-8s6" id="F0j-NZ-SXY"/>
+                        <outlet property="playButton" destination="vH3-yM-BI8" id="lsq-ng-lsa"/>
+                        <outlet property="titleLabel" destination="Zbc-Im-wN1" id="Vf7-XB-viw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bOW-pk-wPQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -154,7 +233,10 @@
             <point key="canvasLocation" x="-213" y="265"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="aCz-OB-UYH"/>
-    </inferredMetricsTieBreakers>
+    <resources>
+        <image name="blank.png" width="1000" height="1000"/>
+        <image name="fastforward.png" width="64" height="42"/>
+        <image name="pause.png" width="128" height="128"/>
+        <image name="rewind.png" width="64" height="42"/>
+    </resources>
 </document>

@@ -21,7 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.playlist = [[NSMutableArray alloc] init];
+    self.playlist = [[Playlist alloc] init];
+    [self.jamOutButtom setHidden:YES];
 }
 
 
@@ -42,7 +43,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.playlist count];
+    return [self.playlist.songs count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -52,10 +53,10 @@
     cell.titleLabel.adjustsFontSizeToFitWidth = YES;
     cell.artistLabel.adjustsFontSizeToFitWidth = YES;
     
-    cell.artistLabel.text = [[self.playlist objectAtIndex:indexPath.row] artist];
-    cell.titleLabel.text = [[self.playlist objectAtIndex:indexPath.row] title];
+    cell.artistLabel.text = [[self.playlist.songs objectAtIndex:indexPath.row] artist];
+    cell.titleLabel.text = [[self.playlist.songs objectAtIndex:indexPath.row] title];
     
-    NSURL *imageUrl = [[self.playlist objectAtIndex:indexPath.row] imageUrl];
+    NSURL *imageUrl = [[self.playlist.songs objectAtIndex:indexPath.row] imageUrl];
     if (imageUrl)
     {
         NSData *data = [NSData dataWithContentsOfURL:imageUrl];
@@ -76,24 +77,25 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //Called whenever the user clicks on a table cell
-    SCTrack *selectedSong = [self.playlist objectAtIndex:indexPath.row];
+    SCTrack *selectedSong = [self.playlist.songs objectAtIndex:indexPath.row];
     
-    if (self.currentTrack == nil)
+    if (self.playlist.currentTrack == nil)
     {
-        self.currentTrack = selectedSong;
+        self.playlist.currentTrack = selectedSong;
     }
     
-    if (selectedSong != self.currentTrack)
+    if (selectedSong != self.playlist.currentTrack)
     {
-        [self resetCurrentSong];
-        self.currentTrack = selectedSong;
+        [self.playlist resetCurrentSong];
+        self.playlist.currentTrack = selectedSong;
     }
     
-    NSLog(@"Stream URL: %@", [self.currentTrack.streamUrl absoluteString]);
-    NSString *realURL = [self.currentTrack.streamUrl.absoluteString
+    NSLog(@"Stream URL: %@", [self.playlist.currentTrack.streamUrl absoluteString]);
+    NSString *realURL = [self.playlist.currentTrack.streamUrl.absoluteString
                          stringByAppendingFormat:@".json?client_id=" CLIENT_ID];
-    self.currentTrack.audioPlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:realURL]];
-    [self.currentTrack.audioPlayer play];
+    self.playlist.currentTrack.audioPlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:realURL]];
+    [self.playlist.currentTrack.audioPlayer play];
+    [self performSegueWithIdentifier:@"Now Playing" sender:[tableView dequeueReusableCellWithIdentifier:@"SongCell" forIndexPath:indexPath]];
 }
 
 
@@ -102,28 +104,16 @@
 - (void)trackDidFinish:(NSNotification *)notification
 {
     // do somethign when track finishes
-    NSUInteger currentIndex = [self.playlist indexOfObject:self.currentTrack];
+    NSUInteger currentIndex = [self.playlist.songs indexOfObject:self.playlist.currentTrack];
     
-    if (currentIndex + 1 < [self.playlist count])
+    if (currentIndex + 1 < [self.playlist.songs count])
     {
-        [self resetCurrentSong];
+        [self.playlist resetCurrentSong];
         
-        SCTrack *newSong = [self.playlist objectAtIndex:currentIndex + 1];
-        self.currentTrack = newSong;
-        [self.currentTrack play];
+        SCTrack *newSong = [self.playlist.songs objectAtIndex:currentIndex + 1];
+        self.playlist.currentTrack = newSong;
+        [self.playlist.currentTrack play];
     }
-}
-
-- (void)resetCurrentSong
-{
-    if (self.currentTrack == nil)
-    {
-        return;
-    }
-
-    CMTime beginning = CMTimeMake(0, 1);
-    [self.currentTrack pause];
-    [self.currentTrack.audioPlayer seekToTime:beginning];
 }
 
 
@@ -154,7 +144,7 @@
             // register the handler
             SCRequestResponseHandler handler;
             handler = ^(NSURLResponse *response, NSData *data, NSError *error) {
-                self.playlist = [[NSMutableArray alloc] init];
+                self.playlist = [[Playlist alloc] init];
                 NSError *jsonError = nil;
                 NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data
                                                                              options:NSJSONReadingMutableLeaves
@@ -192,7 +182,7 @@
                                                                  andUrl:streamUrl
                                                                andImage:imageUrl];
                         
-                        [self.playlist addObject:track];
+                        [self.playlist.songs addObject:track];
                     }
                     
                     [self.tableView reloadData];
@@ -223,10 +213,17 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //Called whenever the view is about to segue to another view
-    PlayerViewController *controller = (PlayerViewController *)[[segue destinationViewController] visibleViewController];
-    controller.currentTrack = self.currentTrack;
-    controller.playlist = self.playlist;
+    if (self.playlist.currentTrack)
+    {
+        //Called whenever the view is about to segue to another view
+        PlayerViewController *controller = (PlayerViewController *)[[segue destinationViewController] visibleViewController];
+        controller.playlist = self.playlist;
+        [self.jamOutButtom setHidden:NO];
+    }
+    else
+    {
+        return;
+    }
 }
 
 @end

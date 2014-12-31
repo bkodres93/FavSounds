@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "SCTrack.h"
+#import "TrackListViewController.h"
 
 @interface PlayerViewController : UIViewController
 
-@property (nonatomic, strong) SCTrack *currentTrack;
-@property (nonatomic, strong) NSMutableArray *playlist;
+@property (nonatomic, strong) Playlist *playlist;
+@property (strong, nonatomic) IBOutlet UIImageView *albumArt;
+@property (strong, nonatomic) IBOutlet UIButton *playButton;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *artistLabel;
+
 
 @end
