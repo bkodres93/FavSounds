@@ -260,7 +260,14 @@
     CMTime time = CMTimeMake(sender.value / 1000, 1);
     [self.playlist.currentTrack.audioPlayer pause];
     [self.playlist.currentTrack.audioPlayer seekToTime:time];
-    [self.playlist.currentTrack.audioPlayer play];
+    if (self.playlist.currentTrack.isPlaying)
+    {
+        [self.playlist.currentTrack.audioPlayer play];
+    }
+    else
+    {
+        // do nothing
+    }
     
     // re-add the time observer
     CMTime interval = CMTimeMakeWithSeconds(1.0, NSEC_PER_SEC); // 1 second
@@ -292,7 +299,16 @@
 }
 - (IBAction)sliderTouchDown:(UISlider *)sender
 {
-    [self.playlist.currentTrack.audioPlayer pause];
+    // Pause the track but maintain that it is actually playing
+    if (!self.playlist.currentTrack.isPlaying)
+    {
+        // do nothing
+    }
+    else
+    {
+        [self.playlist.currentTrack.audioPlayer pause];
+        self.playlist.currentTrack.isPlaying = YES; // important
+    }
     [self.playlist.currentTrack.audioPlayer removeTimeObserver:self.timeObserver];
 }
 
