@@ -13,6 +13,7 @@
 
 @property AVPlayer *audioPlayer;
 @property AVPlayerItem *playerItem;
+@property NSUInteger duration;   // in milliseconds
 
 @property BOOL isPlaying;
 

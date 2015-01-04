@@ -23,6 +23,7 @@
     [super viewDidLoad];
     self.playlist = [[Playlist alloc] init];
     [self.jamOutButtom setHidden:YES];
+    [self loadInitialData];
 }
 
 
@@ -31,6 +32,92 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)loadInitialData
+{
+    // Create the request.
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://api.soundcloud.com/users/58871449/favorites.json?client_id=36e9edc50bb49091f65b65c30dfd6e4e"]];
+    
+    // Create url connection and fire request
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
+    [conn start];
+}
+
+
+#pragma mark NSURLConnection Delegate Methods
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    // A response has been received, this is where we initialize the instance var you created
+    // so that we can append data to it in the didReceiveData method
+    // Furthermore, this method is called each time there is a redirect so reinitializing it
+    // also serves to clear it
+    _responseData = [[NSMutableData alloc] init];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    // Append the new data to the instance variable you declared
+    [self.responseData appendData:data];
+}
+
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
+                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
+    // Return nil to indicate not necessary to store a cached response for this connection
+    return nil;
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    // The request is complete and data has been received
+    // You can parse the stuff in your instance variable now
+    NSLog(@"connectionDidFinishLoading");
+    NSLog(@"Succeeded! Received %lu bytes of data",self.responseData.length);
+
+    // convert to JSON
+    NSError *myError = nil;
+    NSDictionary *res = [NSJSONSerialization JSONObjectWithData:self.responseData
+                                                        options:NSJSONReadingMutableLeaves
+                                                          error:&myError];
+    
+    // show all values
+    for(id key in res) {
+        NSString *keyAsString = (NSString *)key;
+        NSLog(@"LARGE key: %@", keyAsString);
+    
+        if ([keyAsString isKindOfClass:[NSString class]] && [keyAsString isEqualToString:@"errors"])
+        {
+            return;
+        }
+        NSString *title = [key valueForKey:@"title"];
+        NSString *artist = [[key valueForKey:@"user"] valueForKey:@"username"];
+        NSString *streamString = [key valueForKey:@"stream_url"];
+        NSString *imageString = [key valueForKey:@"artwork_url"];
+        
+        NSURL *streamUrl = nil;
+        if (streamString != nil)
+        {
+            streamUrl = [[NSURL alloc] initWithString:streamString];
+        }
+        NSURL *imageUrl = nil;
+        if (imageString != nil && ![imageString isKindOfClass:[NSNull class]])
+        {
+            imageUrl = [[NSURL alloc] initWithString:imageString];
+        }
+        
+        SCTrack *track = [[SCTrack alloc] initWithTitle:title
+                                              andArtist:artist
+                                                 andUrl:streamUrl
+                                               andImage:imageUrl];
+        track.duration = [[key valueForKey:@"duration"] integerValue];
+        
+        [self.playlist.songs addObject:track];
+    }
+    
+    [self.tableView reloadData];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    // The request has failed for some reason!
+    // Check the error var
+    NSLog(@"Error");
+}
 
 #pragma mark UITableViewController methods
 
@@ -91,10 +178,26 @@
     }
     
     NSLog(@"Stream URL: %@", [self.playlist.currentTrack.streamUrl absoluteString]);
-    NSString *realURL = [self.playlist.currentTrack.streamUrl.absoluteString
-                         stringByAppendingFormat:@".json?client_id=" CLIENT_ID];
-    self.playlist.currentTrack.audioPlayer = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:realURL]];
-    [self.playlist.currentTrack.audioPlayer play];
+    if ([self.playlist.currentTrack.streamUrl absoluteString])
+    {
+        NSString *realURLString = [self.playlist.currentTrack.streamUrl.absoluteString
+                                   stringByAppendingFormat:@".json?client_id=" CLIENT_ID];
+        NSURL *realUrl = [[NSURL alloc] initWithString:realURLString];
+        AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:realUrl];
+        self.playlist.currentTrack.playerItem = playerItem;
+        self.playlist.currentTrack.audioPlayer = [[AVPlayer alloc] initWithPlayerItem:playerItem];
+        [self.playlist.currentTrack.audioPlayer play];
+        self.playlist.currentTrack.isPlaying = YES;
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid stream url"
+                                                        message:@"It appears the soundcloud stream url is invalid."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
     [self performSegueWithIdentifier:@"Now Playing" sender:[tableView dequeueReusableCellWithIdentifier:@"SongCell" forIndexPath:indexPath]];
 }
 
@@ -181,6 +284,7 @@
                                                               andArtist:artist
                                                                  andUrl:streamUrl
                                                                andImage:imageUrl];
+                        track.duration = [[key valueForKey:@"duration"] integerValue];
                         
                         [self.playlist.songs addObject:track];
                     }
