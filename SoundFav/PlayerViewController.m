@@ -60,9 +60,9 @@
         self.currentTimeSlider.value = time.value / time.timescale * 1000;
         
         // Set the seconds
-        NSUInteger currentSeconds = time.value / time.timescale;
-        NSUInteger currentMinutes = currentSeconds / 60;
-        NSUInteger currentExtraSeconds = currentSeconds % 60;
+        long long currentSeconds = time.value / time.timescale;
+        long long currentMinutes = currentSeconds / 60;
+        long long currentExtraSeconds = currentSeconds % 60;
         NSString *currentString = [NSString stringWithFormat:@"%lu:", (unsigned long)currentMinutes];
         if (currentExtraSeconds < 10)
         {
@@ -70,26 +70,30 @@
         }
         else
         {
-            currentString = [currentString stringByAppendingString:[NSString stringWithFormat:@"%lu", currentExtraSeconds]];
+            currentString = [currentString stringByAppendingString:[NSString stringWithFormat:@"%lld", currentExtraSeconds]];
         }
         self.currentTimeLabel.text = currentString;
         
         // now to calculate total number
-        NSUInteger totalSeconds = self.playlist.currentTrack.duration / 1000;
-        NSUInteger totalMinutes = totalSeconds / 60;
-        NSUInteger totalExtraSeconds = totalSeconds % 60;
+        long long totalSeconds = self.playlist.currentTrack.duration / 1000;
+        long long totalMinutes = totalSeconds / 60;
+        long long totalExtraSeconds = totalSeconds % 60;
         NSString *totalString = [NSString stringWithFormat:@"%lu:", (unsigned long)totalMinutes];
         if (totalExtraSeconds < 10)
         {
-            totalString = [totalString stringByAppendingString:[NSString stringWithFormat:@"0%lu", totalExtraSeconds]];
+            totalString = [totalString stringByAppendingString:[NSString stringWithFormat:@"0%lld", totalExtraSeconds]];
         }
         else
         {
-            totalString = [totalString stringByAppendingString:[NSString stringWithFormat:@"%lu", totalExtraSeconds]];
+            totalString = [totalString stringByAppendingString:[NSString stringWithFormat:@"%lld", totalExtraSeconds]];
         }
         self.totalTimeLabel.text = totalString;
         
     }
+    NSURL *thumbUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"thumb" ofType:@"png"]];
+    data = [[NSData alloc] initWithContentsOfURL:thumbUrl];
+    UIImage *thumbImage = [[UIImage alloc] initWithData:data];
+    [self.currentTimeSlider setThumbImage:thumbImage forState:UIControlStateNormal];
     
     // complicated observer stuff, must create a weak reference to self to avoid retain cycle
     CMTime interval = CMTimeMakeWithSeconds(1.0, NSEC_PER_SEC); // 1 second
@@ -103,17 +107,17 @@
                                                         // here is where updating the timer label will happen
                                                         
                                                         // Set the seconds
-                                                        NSUInteger currentSeconds = time.value / time.timescale;
-                                                        NSUInteger currentMinutes = currentSeconds / 60;
-                                                        NSUInteger currentExtraSeconds = currentSeconds % 60;
+                                                        long long currentSeconds = time.value / time.timescale;
+                                                        long long currentMinutes = currentSeconds / 60;
+                                                        long long currentExtraSeconds = currentSeconds % 60;
                                                         NSString *currentString = [NSString stringWithFormat:@"%lu:", (unsigned long)currentMinutes];
                                                         if (currentExtraSeconds < 10)
                                                         {
-                                                            currentString = [currentString stringByAppendingString:[NSString stringWithFormat:@"0%lu", (unsigned long)currentExtraSeconds]];
+                                                            currentString = [currentString stringByAppendingString:[NSString stringWithFormat:@"0%lld", currentExtraSeconds]];
                                                         }
                                                         else
                                                         {
-                                                            currentString = [currentString stringByAppendingString:[NSString stringWithFormat:@"%lu", currentExtraSeconds]];
+                                                            currentString = [currentString stringByAppendingString:[NSString stringWithFormat:@"%lld", currentExtraSeconds]];
                                                         }
                                                         weakSelf.currentTimeLabel.text = currentString;
                                                         
@@ -281,17 +285,17 @@
                                                         // here is where updating the timer label will happen
                                                         
                                                         // Set the seconds
-                                                        NSUInteger currentSeconds = time.value / time.timescale;
-                                                        NSUInteger currentMinutes = currentSeconds / 60;
-                                                        NSUInteger currentExtraSeconds = currentSeconds % 60;
+                                                        long long currentSeconds = time.value / time.timescale;
+                                                        long long currentMinutes = currentSeconds / 60;
+                                                        long long currentExtraSeconds = currentSeconds % 60;
                                                         NSString *currentString = [NSString stringWithFormat:@"%lu:", (unsigned long)currentMinutes];
                                                         if (currentExtraSeconds < 10)
                                                         {
-                                                            currentString = [currentString stringByAppendingString:[NSString stringWithFormat:@"0%lu", (unsigned long)currentExtraSeconds]];
+                                                            currentString = [currentString stringByAppendingString:[NSString stringWithFormat:@"0%lld", currentExtraSeconds]];
                                                         }
                                                         else
                                                         {
-                                                            currentString = [currentString stringByAppendingString:[NSString stringWithFormat:@"%lu", currentExtraSeconds]];
+                                                            currentString = [currentString stringByAppendingString:[NSString stringWithFormat:@"%lld", currentExtraSeconds]];
                                                         }
                                                         weakSelf.currentTimeLabel.text = currentString;
                                                         
@@ -323,17 +327,17 @@
     // here is where updating the timer label will happen
     
     // Set the seconds
-    NSUInteger currentSeconds = time.value / time.timescale;
-    NSUInteger currentMinutes = currentSeconds / 60;
-    NSUInteger currentExtraSeconds = currentSeconds % 60;
+    long long currentSeconds = time.value / time.timescale;
+    long long currentMinutes = currentSeconds / 60;
+    long long currentExtraSeconds = currentSeconds % 60;
     NSString *currentString = [NSString stringWithFormat:@"%lu:", (unsigned long)currentMinutes];
     if (currentExtraSeconds < 10)
     {
-        currentString = [currentString stringByAppendingString:[NSString stringWithFormat:@"0%lu", (unsigned long)currentExtraSeconds]];
+        currentString = [currentString stringByAppendingString:[NSString stringWithFormat:@"0%lld", currentExtraSeconds]];
     }
     else
     {
-        currentString = [currentString stringByAppendingString:[NSString stringWithFormat:@"%lu", currentExtraSeconds]];
+        currentString = [currentString stringByAppendingString:[NSString stringWithFormat:@"%lld", currentExtraSeconds]];
     }
     self.currentTimeLabel.text = currentString;
 }

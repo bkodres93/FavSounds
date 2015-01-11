@@ -183,7 +183,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="h6V-j3-zb5">
-                                <rect key="frame" x="93" y="610" width="414" height="31"/>
+                                <rect key="frame" x="70" y="610" width="460" height="31"/>
                                 <connections>
                                     <action selector="seekToTime:" destination="LaE-gv-2m2" eventType="touchUpInside" id="m8J-qW-Kcc"/>
                                     <action selector="sliderTouchDown:" destination="LaE-gv-2m2" eventType="touchDown" id="Q9g-MS-qEc"/>
@@ -209,7 +209,7 @@
                             <constraint firstAttribute="centerX" secondItem="Zbc-Im-wN1" secondAttribute="centerX" id="2Wc-YY-hAx"/>
                             <constraint firstItem="Zbc-Im-wN1" firstAttribute="top" secondItem="vH3-yM-BI8" secondAttribute="bottom" constant="21" id="2l8-xe-cTD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cvM-DB-ccM" secondAttribute="trailing" constant="34" id="4dh-I2-gmE"/>
-                            <constraint firstItem="h6V-j3-zb5" firstAttribute="leading" secondItem="2bz-oA-FZu" secondAttribute="trailing" constant="31" id="5EE-1f-T3Y"/>
+                            <constraint firstItem="h6V-j3-zb5" firstAttribute="leading" secondItem="2bz-oA-FZu" secondAttribute="trailing" constant="8" id="5EE-1f-T3Y"/>
                             <constraint firstItem="JEG-uk-yC7" firstAttribute="trailing" secondItem="BFV-eW-Xcb" secondAttribute="trailingMargin" id="CMU-9B-sGc"/>
                             <constraint firstItem="2bz-oA-FZu" firstAttribute="leading" secondItem="BFV-eW-Xcb" secondAttribute="leadingMargin" id="MJ5-KI-J59"/>
                             <constraint firstItem="cvM-DB-ccM" firstAttribute="top" secondItem="viH-qy-Crp" secondAttribute="bottom" constant="28" id="Mi4-Fv-wpr"/>
@@ -220,15 +220,15 @@
                             <constraint firstItem="Zbc-Im-wN1" firstAttribute="leading" secondItem="cvM-DB-ccM" secondAttribute="leading" id="YIU-18-UDH"/>
                             <constraint firstItem="82L-0p-HEa" firstAttribute="top" secondItem="h6V-j3-zb5" secondAttribute="bottom" constant="31" id="a0p-ox-BKO"/>
                             <constraint firstItem="cvM-DB-ccM" firstAttribute="leading" secondItem="BFV-eW-Xcb" secondAttribute="leadingMargin" constant="34" id="bgM-PT-jgR"/>
-                            <constraint firstItem="JEG-uk-yC7" firstAttribute="leading" secondItem="h6V-j3-zb5" secondAttribute="trailing" constant="31" id="dBz-e9-WAd"/>
+                            <constraint firstItem="JEG-uk-yC7" firstAttribute="leading" secondItem="h6V-j3-zb5" secondAttribute="trailing" constant="8" id="dBz-e9-WAd"/>
                             <constraint firstItem="82L-0p-HEa" firstAttribute="leading" secondItem="vH3-yM-BI8" secondAttribute="trailing" constant="30" id="dXt-aE-4pQ"/>
                             <constraint firstItem="vH3-yM-BI8" firstAttribute="top" secondItem="h6V-j3-zb5" secondAttribute="bottom" constant="17" id="fYg-gM-uow"/>
-                            <constraint firstItem="cvM-DB-ccM" firstAttribute="leading" secondItem="h6V-j3-zb5" secondAttribute="leading" constant="-45" id="hLL-hf-LKN"/>
+                            <constraint firstItem="cvM-DB-ccM" firstAttribute="leading" secondItem="h6V-j3-zb5" secondAttribute="leading" constant="-22" id="hLL-hf-LKN"/>
                             <constraint firstItem="2bz-oA-FZu" firstAttribute="top" secondItem="cvM-DB-ccM" secondAttribute="bottom" constant="22" id="i92-Gx-L4H"/>
                             <constraint firstItem="vH3-yM-BI8" firstAttribute="leading" secondItem="6Jq-5P-afN" secondAttribute="trailing" constant="30" id="jdJ-xk-xpG"/>
                             <constraint firstItem="PcB-hU-8s6" firstAttribute="top" secondItem="Zbc-Im-wN1" secondAttribute="bottom" constant="13" id="kaT-2a-ZOZ"/>
                             <constraint firstItem="h6V-j3-zb5" firstAttribute="top" secondItem="cvM-DB-ccM" secondAttribute="bottom" constant="18" id="new-R2-Wj7"/>
-                            <constraint firstItem="cvM-DB-ccM" firstAttribute="trailing" secondItem="h6V-j3-zb5" secondAttribute="trailing" constant="45" id="rLu-4d-545"/>
+                            <constraint firstItem="cvM-DB-ccM" firstAttribute="trailing" secondItem="h6V-j3-zb5" secondAttribute="trailing" constant="22" id="rLu-4d-545"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Now Playing" id="ZtM-jM-y9b"/>

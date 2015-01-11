@@ -19,7 +19,8 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.playlist = [[Playlist alloc] init];
     [self.jamOutButtom setHidden:YES];
@@ -27,7 +28,8 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -68,7 +70,7 @@
     // The request is complete and data has been received
     // You can parse the stuff in your instance variable now
     NSLog(@"connectionDidFinishLoading");
-    NSLog(@"Succeeded! Received %lu bytes of data",self.responseData.length);
+    NSLog(@"Succeeded! Received %lu bytes of data",(unsigned long)self.responseData.length);
 
     // convert to JSON
     NSError *myError = nil;
@@ -118,6 +120,8 @@
     // Check the error var
     NSLog(@"Error");
 }
+
+
 
 #pragma mark UITableViewController methods
 
@@ -220,6 +224,8 @@
 }
 
 
+#pragma mark login
+
 - (IBAction)login:(id)sender
 {
     SCLoginViewControllerCompletionHandler handler = ^(NSError *error) {
@@ -314,6 +320,10 @@
         [self presentViewController:loginViewController animated:YES completion:NULL];
     }];
 }
+
+
+
+#pragma mark SEGUE
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
