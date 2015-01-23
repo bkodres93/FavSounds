@@ -37,7 +37,7 @@
 - (void)loadInitialData
 {
     // Create the request.
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://api.soundcloud.com/users/58871449/favorites.json?client_id=36e9edc50bb49091f65b65c30dfd6e4e"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://api.soundcloud.com/users/58871449/favorites.json?client_id=" CLIENT_ID]];
     
     // Create url connection and fire request
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
@@ -118,7 +118,20 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     // The request has failed for some reason!
     // Check the error var
-    NSLog(@"Error");
+    NSLog(@"Error: %@", error);
+    NSURL *url1 = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Kamei - Falling in Love" ofType:@"mp3"]];
+    SCTrack *track = [[SCTrack alloc] initWithTitle:@"Falling in Love"
+                                          andArtist:@"Kamei"
+                                             andUrl:url1
+                                           andImage:nil];
+    track.playerItem = [AVPlayerItem playerItemWithURL:url1];
+    track.audioPlayer = [AVPlayer playerWithPlayerItem:track.playerItem];
+    
+    //track.duration = track.playerItem.forwardPlaybackEndTime.value / track.playerItem.forwardPlaybackEndTime.timescale;
+    
+    [self.playlist.songs addObject:track];
+    
+    [self.tableView reloadData];
 }
 
 
