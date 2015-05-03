@@ -135,6 +135,53 @@
         image = [[UIImage alloc] initWithData:data];
         [self.playButton setImage:image forState:UIControlStateNormal];
     }
+    
+    // register the notification for when the track finishes
+    NSInteger numberOfViewControllers = self.navigationController.viewControllers.count;
+    ViewController *previousVC = [self.navigationController.viewControllers objectAtIndex:numberOfViewControllers - 1];
+    [[NSNotificationCenter defaultCenter] addObserver:previousVC
+                                             selector:@selector(trackDidFinish:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:self.playlist.currentTrack.playerItem];
+    
+}
+
+- (void)trackDidFinish:(NSNotification *)notification
+{
+    // do somethign when track finishes
+    NSUInteger currentIndex = [self.playlist.songs indexOfObject:self.playlist.currentTrack];
+    
+    if (currentIndex + 1 < [self.playlist.songs count])
+    {
+        [self.playlist resetCurrentSong];
+        [self.playlist.currentTrack.audioPlayer removeTimeObserver:self.timeObserver];
+        
+        SCTrack *newSong = [self.playlist.songs objectAtIndex:currentIndex + 1];
+        self.playlist.currentTrack = newSong;
+        NSLog(@"Stream URL: %@", [self.playlist.currentTrack.streamUrl absoluteString]);
+        if ([self.playlist.currentTrack.streamUrl absoluteString])
+        {
+            NSString *realURLString = [self.playlist.currentTrack.streamUrl.absoluteString
+                                       stringByAppendingFormat:@".json?client_id=" CLIENT_ID];
+            NSURL *realUrl = [[NSURL alloc] initWithString:realURLString];
+            AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:realUrl];
+            self.playlist.currentTrack.playerItem = playerItem;
+            self.playlist.currentTrack.audioPlayer = [[AVPlayer alloc] initWithPlayerItem:playerItem];
+            [self.playlist.currentTrack.audioPlayer play];
+            self.playlist.currentTrack.isPlaying = YES;
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid stream url"
+                                                            message:@"It appears the soundcloud stream url is invalid."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+
+        [self viewDidLoad];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
