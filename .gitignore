@@ -2,7 +2,12 @@
 Podfile
 Podfile.lock
 Pods/*
-SoundFav.xcodeproj/project.pbxproj
+SoundFav.xcodeproj/*
 SoundFav.xcworkspace/xcuserdata
 SoundFav/SoundCloud.bundle
+SoundFavTests/*
 SoundFavTests
+SoundFav.xcworkspace/*
+SoundFav.xcworkspace
+SoundFav.xcodeproj
+
