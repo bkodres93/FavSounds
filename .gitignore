@@ -1,6 +1,8 @@
+.DS_Store
 Podfile
 Podfile.lock
 Pods/*
 SoundFav.xcodeproj/project.pbxproj
 SoundFav.xcworkspace/xcuserdata
 SoundFav/SoundCloud.bundle
+SoundFavTests

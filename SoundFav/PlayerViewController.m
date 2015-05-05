@@ -90,10 +90,12 @@
         self.totalTimeLabel.text = totalString;
         
     }
+    /*
     NSURL *thumbUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"thumb" ofType:@"png"]];
     data = [[NSData alloc] initWithContentsOfURL:thumbUrl];
     UIImage *thumbImage = [[UIImage alloc] initWithData:data];
     [self.currentTimeSlider setThumbImage:thumbImage forState:UIControlStateNormal];
+     */
     
     // complicated observer stuff, must create a weak reference to self to avoid retain cycle
     CMTime interval = CMTimeMakeWithSeconds(1.0, NSEC_PER_SEC); // 1 second
