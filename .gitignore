@@ -1,13 +1,1 @@
 .DS_Store
-Podfile
-Podfile.lock
-Pods/*
-SoundFav.xcodeproj/*
-SoundFav.xcworkspace/xcuserdata
-SoundFav/SoundCloud.bundle
-SoundFavTests/*
-SoundFavTests
-SoundFav.xcworkspace/*
-SoundFav.xcworkspace
-SoundFav.xcodeproj
-
